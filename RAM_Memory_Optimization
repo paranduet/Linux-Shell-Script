@@ -1,0 +1,24 @@
+How to Clear RAM Memory Cache, Buffer and Swap Space on Linux
+=================================================================
+Clear Cache In Linux Three Ways:
+------------------------------------
+1. Clear PageCache only. It is safe for production and Enterprize level
+# sync; echo 1 > /proc/sys/vm/drop_caches
+
+2. Clear dentries and inodes.
+# sync; echo 2 > /proc/sys/vm/drop_caches
+
+3. Clear PageCache, dentries and inodes.
+# sync; echo 3 > /proc/sys/vm/drop_caches 
+
+Where: 1->  will use for clear PageCache
+       2->  Will use for clear dentries and inodes
+       3->  Will use for clear PageCache, dentries, inodes 
+How to Clear Swap Space in Linux?
+-----------------------------------
+# swapoff -a && swapon -a
+		OR 
+Cached and Swap can be done using following single command:
+# echo 3 > /proc/sys/vm/drop_caches && swapoff -a && swapon -a
+		OR
+$ su -c "echo 3 >'/proc/sys/vm/drop_caches' && swapoff -a && swapon -a " root
