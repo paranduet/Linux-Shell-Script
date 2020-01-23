@@ -1,0 +1,85 @@
+#!/bin/bash   
+#########################################################################################
+#	Author: H.M. Shah Paran Ali
+#	OS Environment: Linux
+#	Description: Manual Process to install Jdk in RHEL and checking process of Heap Size
+#	Email: paran.duet@gmail.com
+#########################################################################################
+
+Java installation process
+==============================
+JDK Path: /usr/java/jdk1.8.0_112/
+
+After store file in JDK_Path then start the following command
+---------------------------------------------------------------
+alternatives --install /usr/bin/java java /usr/java/jdk1.8.0_112/bin/java 100
+
+alternatives --install /usr/bin/java java /usr/java/jdk1.7.0_79/bin/java 100
+
+alternatives --config java
+
+Then choose my jdk number
+
+
+Env Set: /root/.bashrc
+======================
+JAVA_HOME=/usr/java/jdk1.8.0_112
+PATH=$PATH:$JAVA_HOME/bin
+
+(Specific for 192.168.7.24)JAVA_HOME=/usr/bin/java
+
+Env Set: /root/.bash_profile
+=============================
+JAVA_HOME=/usr/java/jdk1.8.0_112
+
+PATH=$PATH:$HOME/bin:$JAVA_HOME/bin
+
+export PATH
+
+export JAVA_HOME
+
+
+Env Set: /etc/bashrc
+===============================
+export JAVA_HOME=/usr/java/jdk1.8.0_112/
+
+export PATH=$PATH:/usr/java/jdk1.8.0_112/bin/
+
+Env Set: /etc/profile
+===============================
+export JAVA_HOME=/usr/java/jdk1.8.0_112/
+
+export PATH=$PATH:/usr/java/jdk1.8.0_112/bin/
+
+
+======== To see ==========
+cd /opt/tomcat/bin/
+./version.sh
+
+
+JDK different Command: 
+>> alternatives --config java
+>> alternatives --remove java /usr/lib/jvm/jre-1.6.0-openjdk/bin/java		// Path can be found using: alternatives --config java
+>> alternatives --display java
+Details Information: http://blogs.igalia.com/dpino/2011/10/13/configuring-different-jdks-with-alternatives/
+
+
+JDK Fonts Path:
+/usr/lib/jvm/jre-1.6.0-openjdk.x86_64/lib/		[For CIPPS]
+rsync -rv /smb/Misc/fonts root@192.168.36.204:/usr/lib/jvm/jre-1.6.0-openjdk.x86_64/lib/
+
+Normally Fonts Path in JDK:
+------------------------------
+/usr/java/jdk1.6.0_45/lib/jre/lib/fonts/
+
+########## How to check Heap Size and Other Info #########
+java -XX:+PrintFlagsFinal -version | grep HeapSize
+
+-------- For Linux -------------
+java -XX:+PrintFlagsFinal -version | grep -iE 'HeapSize|PermSize|ThreadStackSize'
+
+--------- For Windows ----------
+java -XX:+PrintFlagsFinal -version | findstr /i "HeapSize PermSize ThreadStackSize"
+
+--------- For MAC ---------------
+java -XX:+PrintFlagsFinal -version | grep -iE 'heapsize|permsize|threadstacksize'
