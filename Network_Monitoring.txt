@@ -1,0 +1,13 @@
+IP Trace Command In Bash
+=============================
+
+
+[root@39_204_inv ~]# traceroute 192.168.39.201
+traceroute to 192.168.39.201 (192.168.39.201), 30 hops max, 60 byte packets
+ 1  192.168.39.201 (192.168.39.201)  1.067 ms  1.084 ms  1.066 ms
+
+[root@39_204_inv ~]# tracepath 192.168.39.201
+ 1:  39_204_inv (192.168.39.204)                            0.152ms pmtu 1500
+ 1:  192.168.39.201 (192.168.39.201)                        0.716ms reached
+ 1:  192.168.39.201 (192.168.39.201)                        0.468ms reached
+     Resume: pmtu 1500 hops 1 back 64

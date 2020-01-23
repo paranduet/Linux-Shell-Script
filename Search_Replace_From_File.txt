@@ -1,0 +1,33 @@
+sed -i -e 's/192.168.5.189/192.168.46.20/g' /etc/ntp.conf
+
+s is used to replace the found expression "192.168.5.189" with "192.168.46.20"
+
+g stands for "global" or whole file, meaning to do this for the whole line. If you leave off the g and "foo" appears twice on the same line, only the first "foo" is changed to "bar".
+
+-i option is used to edit in place on filename.
+
+-e option indicates a command to run.
+
+How to Search String:
+--------------------------
+grep --color '192.168.46.20' /etc/ntp.conf
+
+1. Append a line after 'N'th line
+
+sed '1 a #This is just a commented line' sedtest.txt    // 1 is the line number, other is adding sentences
+
+2. To append after last line, use $
+
+sed '$ a This is the last line' sedtest.txt
+
+3. Insert line using the Line number
+
+This will insert the line before the line at line number 'N'.
+
+sed '4 i #This is the extra line' sedtest.txt			// Here i is used to insert in the 4th line
+This is line #1
+This is line #2
+This is line #3
+#This is the extra line
+This is line #4
+This is line #5

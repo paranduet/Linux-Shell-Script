@@ -1,0 +1,21 @@
+YUM Server and Client Configuration
+========================================
+ 
+YUM SERVER using ftp
+----------------------
+1. First we have to create directory on FTP directory
+	-> mkdir /dev/ftp/yum_server
+2. copy all linux package from other source, source can be DVD or another server or other's
+
+	-> 
+
+3. createrepo /dev/ftp/yum_server
+
+4./etc/init.d/vsftpd restart|start|stop
+
+
+YUM Client Configuration using FTP
+-------------------------------------
+1. enter in the yum.repos directory
+
+

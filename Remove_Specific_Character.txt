@@ -1,0 +1,2 @@
+######### Following command will be ignore % character ############
+data=`df -h | grep 'VolGrpRDS-LogVolRoot' | awk  '{print $5}'` ; echo "${data//%}"

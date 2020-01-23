@@ -1,0 +1,9 @@
+
+vim /etc/rsyslog.conf
+
+Search Pattern:
+*.* @@remote-host:514
+
+Add following line under the search pattern (*.* @@remote-host:514)
+
+ *.* @@192.168.39.210:514  [Where 192.168.39.210 is the remote IP]

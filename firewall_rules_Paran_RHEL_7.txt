@@ -1,0 +1,91 @@
+
+###################################################################################
+#	Author: H.M. Shah Paran Ali
+#	OS Environment: RHEL 7.4
+#	Description: Tutorial on Firewall Policy
+#	Email: paran.duet@gmail.com
+###################################################################################
+
+1. How to check firewall status in RHEL 7.4
+
+# systemctl status firewalld
+
+2. How to check all the active zones and active services.
+
+# firewall-cmd --get-active-zones
+# firewall-cmd --get-services
+
+3. How to install GUI package 
+
+# yum install firewalld firewall-config
+
+4. Linux firewall and list all active services, ports, rich rules for public zone using following command.
+
+# firewall-cmd --zone=public --list-all
+
+	How to add, remove and modify rules in Firewall 
+=======================================================
+1. To open any port for public zone, use the following command. For example, the following command will open port 80 for public zone.
+
+# firewall-cmd --permanent --zone=public --add-port=80/tcp
+
+2. Similarly, to remove added port, just use the ‘–remove‘ option with firewalld command as shown below.
+
+# firewall-cmd --zone=public --remove-port=80/tcp
+
+3. After adding or removing specific ports, make sure to confirm whether the port is added or removed by using ‘–list-ports‘ option.
+
+# firewall-cmd --zone=public --list-ports
+
+		How to Adding and Removing Services in Firewalld
+======================================================================
+1. How to check service list status in Firewall
+
+# firewall-cmd --zone=public --list-services
+
+2. How to Add service in Firewall
+
+# firewall-cmd --zone=public --add-service=ftp
+
+3. How to remove service from firewall
+
+# firewall-cmd --zone=public --remove-service=ftp
+
+		Block Incoming and Outgoing Packets (Panic Mode)
+================================================================
+1. If you wish to block any incoming or outgoing connections, you need to use a ‘panic-on‘ mode to block such requests.
+
+
+		Masquerading IP Address
+	===================================
+1. How to check External zone enable or not
+
+# firewall-cmd --zone=external --query-masquerade
+
+2. If it’s not enabled, you can enable it by following command.
+
+# firewall-cmd --zone=external --add-masquerade
+
+3. Now let’s forward all ssh port 22 connections to port 2222 for IP address 192.168.0.132.
+
+# firewall-cmd --zone=external --add-forward-port=port=22:proto=tcp:toport=2222:toaddr=192.168.0.132
+# firewall-cmd --zone=external --list-all
+
+Next Topics: https://www.tecmint.com/firewalld-rules-for-centos-7/2/
+
+
+Following Tutorial Link: https://www.thegeekdiary.com/centos-rhel-7-beginners-guide-to-firewalld/
+Configuration files
+Configuration files for firewalld exist in two directories:
+/usr/lib/firewalld: Contains default configuration files. Do not make changes to these files. An upgrade of the firewalld package overwrites this directory.
+/etc/firewalld: Changes to the default configuration files are stored in this directory.Files in this directory overload the default configuration files.
+
+firewalld zones
+The firewalld service allows you to separate networks into different zones based on the level of trust you want to place on the devices and traffic within a specific network. For each zone you can define the following features:
+Services: Predefined or custom services to trust. Trusted services are a combination of ports and protocols that are accessible from other systems and networks.
+Ports: Additional ports or port ranges and associated protocols that are accessible from other systems and networks.
+Masquerading: Translate IPv4 addresses to a single external address. With masquerading enabled, addresses of a private network are mapped to and hidden behind a public address.
+Port Forwarding: Forward inbound network traffic from a specific port or port range to an alternative port on the local system, or to a port on another IPv4 address.
+ICMP Filter: Block selected Internet Control Message Protocol messages.
+Rich Rules: Extend existing firewalld rules to include additional source and destination addresses and logging and auditing actions.
+Interfaces: Network interfaces bound to the zone. The zone for an interface is specified with the ZONE=option in the /etc/sysconfig/network-scripts/ifcfg file. If the option is missing, the interface is bound to the default zone.

@@ -1,0 +1,33 @@
+How configure a repository server form iso image of LINUX
+------------------------------------------------------------
+
+Creation of yum repositories is handled by a separate tool called createrepo, which generates the necessary XML metadata. If you have a slow internet connection or collection of all downloaded ISO images, use this hack to install rpms from iso images.
+
+Step # 1: Mount an ISO file
+Type the following command (replace iso file name with the actual iso file):
+# yum install createrepo
+# mkdir -p /mnt/iso/{1,2,3}
+# mount -o loop /path/to/centos1.iso /mnt/iso/1
+
+Step # 2: Create a repository
+Use createrepo to generate the necessary XML metadata. Type the following commands:
+# cd /mnt/iso
+# createrepo .
+
+
+Clean repo, enter:
+# yum clean all
+
+Step # 3: Create config file
+You need to create a repo config file in /etc/yum.repos.d/ directory.
+# vi /etc/yum.repos.d/iso.repo
+
+Append following text:
+[My ISO Repository]
+baseurl=file:///mnt/iso
+enabled=1
+
+Save and close the changes.
+
+Now use yum command to install packages from ISO images:
+# yum install package-name

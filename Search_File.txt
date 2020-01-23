@@ -1,0 +1,34 @@
+Search File
+==========================
+
+1. Search realated file, where -iname means ignore case sensitivity
+	find /opt/tomcat/webapps/invreport/WEB-INF/ -iname invrep-config*
+	or
+	find /opt/tomcat/webapps/invreport/WEB-INF/ -iname invrep*
+
+2. search related file with case sensitive , -name means case sensitive
+	find /opt/tomcat/webapps/invreport/WEB-INF/ -name invrep-config*
+
+3. Find all directories whose name is Tecmint in / directory.
+	# find / -type d -name invrep*
+
+4. Find all the files whose permissions are 777.
+	# find . -type f -perm 0777 -print
+
+5. Find all the SGID bit files whose permissions set to 644.
+
+
+6. To find all files that belongs to user Tecmint under /home directory.
+	#find /home -user tecmint
+
+7. Find empty files
+	#find /ftp/ -type f -empty
+
+8. Find empty files and remove or delete
+	#find /ftp/ -type f -empty -exec rm {} \;
+
+9. Find specific file and delete
+	# find / -type f -name *.mp3 -size +10M -exec rm {} \;
+
+10. We can search for all files that end in ".conf" like this:
+	#find / -type f -name "*.conf"

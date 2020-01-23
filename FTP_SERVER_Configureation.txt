@@ -1,0 +1,70 @@
+=================================================
+## Author Name: H.M. Shah Paran Ali 		#
+## Email : paran.duet@gmail.com			#
+## Description : Tutorial on FTP of RHEL 7	#
+=================================================
+
+########## How to install FTP #########
+	yum install vsftpd
+######### FTP status check ############
+	systemctl status vsftpd
+
+########### Original File Backup Purpose ##############
+	cp /etc/vsftpd/vsftpd.conf /etc/vsftpd/vsftpd.conf.org
+########### Configuration of FTP ############
+vi /etc/vsftpd/vsftpd.conf
+
+Add following lines at the end of file:
+
+userlist_file=/etc/vsftpd.userlist
+userlist_deny=NO
+chroot_local_user=YES
+##### Following will enable when ftp user are able to access root by default ############
+allow_writeable_chroot=YES
+
+########### If SELINUX Enable then need to execute the following command ###########
+	semanage boolean -m ftpd_full_access --on
+
+  824  vi /etc/vsftpd/vsftpd.conf
+  825  systemctl status vsftpd
+  826  systemctl restart vsftpd
+  827  systemctl status vsftpd
+
+########## Create User for of FTP, here full name: FTP User, username: ftpuser #########
+	useradd -m -c "FTP User, CEO" -s /bin/bash ftpuser
+
+########## Set Password for ftpuser ############
+	passwd ftpuser
+########## Need to create vsftpd.userlist file which has been called in the vsftpd.conf file "userlist_file"#####
+  touch /etc/vsftpd.userlist
+
+########## add valid authorized ftp username (eg. ftpuser) inside of vsftpd.userlist #########
+	 vi /etc/vsftpd.userlist
+######## OR following ############
+	echo "ftpuser" | tee -a /etc/vsftpd.userlist
+######## How to verify valid user name #########
+  cat /etc/vsftpd.userlist
+
+######### FTP start purpose #########
+	systemctl restart vsftpd
+	systemctl status vsftpd
+
+######### Specific Directory for FTP ########
+	mkdir /ftp
+	cd /ftp/
+	chown ftpuser:ftpuser /ftp
+	chmod 0700 /ftp/
+######### Check ftpuser status ########
+	grep 'ftpuser' /etc/passwd
+
+######### Set Specific directory permission fro ftpuser which will got after logging ######
+	usermod -d /ftp/ ftpuser
+
+######### FTP start purpose #########
+	systemctl restart vsftpd
+	systemctl status vsftpd
+######### testing purpose create a simple file ########
+	touch /ftp/test.txt
+
+
+Link: https://www.tecmint.com/install-ftp-server-in-centos-7/

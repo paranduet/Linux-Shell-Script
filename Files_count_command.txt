@@ -1,0 +1,15 @@
+find DIR_NAME -type f | wc -l
+Explanation:
+
+-type f to include only files.
+| (and not ¦) redirects find command's standard output to wc command's standard input.
+wc (short for word count) counts newlines, words and bytes on its input (docs).
+-l to count just newlines.
+Notes:
+
+Replace DIR_NAME with . to execute the command in the current folder.
+You can also remove the -type f to include directories (and symlinks) in the count.
+It's possible this command will overcount if filenames can contain newline characters.
+Explanation of why your example does not work:
+
+In the command you showed, you do not use the "Pipe" (|) to kind-of connect two commands, but the broken bar (¦) which the shell does not recognize as a command or something similar. That's why you get that error message.

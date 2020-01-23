@@ -1,0 +1,32 @@
+|||||||||||||||||||||||||||||||||
+|| Author: H.M. Shah Paran Ali ||
+|| Email: paran.duet@gmail.com ||
+|||||||||||||||||||||||||||||||||
+
+
+How to ignore invalid and self signed ssl connection errors with curl
+=========================================================================
+You need to pass the -k or --insecure option to the curl command. 
+
+Does curl have a –no-check-certificate option like wget command on Linux?
+---------------------------------------------------------------------------
+curl -k url
+curl --insecure url
+curl --insecure [options] url
+curl --insecure -I url
+
+cURL ignore SSL certificate warnings command
++++++++++++++++++++++++++++++++++++++++++++++++
+curl -O --insecure --header 'Host: www.example.com' -I https://207.5.1.10/file.html
+### OR ###
+curl -k --header 'Host: www.example.com' -I https://207.5.1.10/file.html
+
+
+How to apply the changes for all HTTPS connection
+==================================================
+You can add insecure option to your $HOME/.curlrc file:
+$ vi $HOME/.curlrc
+
+insecure
+
+Save and close the file. Now Check pls

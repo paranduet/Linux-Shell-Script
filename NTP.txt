@@ -1,0 +1,14 @@
+NTP Configuration
+=======================
+Define: Network Time Protocal, centrally  time monitoring purpose use this.
+
+Process:
+1. Edit -> vi /etc/ntp.conf
+	server 192.168.7.94{server ip address or those we are prefare for the network time protocal}
+
+2. would u like to graphically check:
+	system-config-date
+
+3./etc/init.d/ntpd restart|start|status
+
+4. chkconfig ntpd --list, on

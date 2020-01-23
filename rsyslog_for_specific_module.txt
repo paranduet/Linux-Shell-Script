@@ -1,0 +1,38 @@
+#### Create a new file under /etc/rsyslog.d/ naming tomcat.conf
+
+>> vi /etc/rsyslog.d/tomcat.conf
+#### Add following lines, where 192.168.39.99 is the central log server IP ########
+input(type="imfile"
+      File="/opt/tomcat/logs/casm.log"
+      Tag="catalina"
+      StateFile="/var/spool/catalina"
+      Severity="info"
+      Facility="local1")
+local1.* @192.168.39.99:514
+
+######## Edit /etc/rsyslog.conf ##############
+
+### Add following line under (#$ModLoad immark.so     # provides --MARK-- message capability)
+module(load="imfile" PollingInterval="10")
+
+### add local1.none in/var/log/messages parameter, full path will be #########
+*.info;mail.none;authpriv.none;cron.none;local1.none                /var/log/messages
+
+### Add the following line at the end of file ##########
+*.* @@192.168.39.99:514
+
+
+
+################ End of rsyslog.conf file ############
+
+$$$$$$$$$$$$$$ log4j.properties file configuration $$$$$$$$$$$$$$
+
+#### Add following lines #############
+### SysLog
+
+log4j.appender.SYSLOG=org.apache.log4j.net.SyslogAppender
+log4j.appender.SYSLOG.threshold=INFO
+log4j.appender.SYSLOG.syslogHost=192.168.39.99
+log4j.appender.SYSLOG.layout=org.apache.log4j.PatternLayout
+log4j.appender.SYSLOG.layout.ConversionPattern=%p: %m
+log4j.appender.SYSLOG.Facility=LOCAL1

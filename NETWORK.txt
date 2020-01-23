@@ -1,0 +1,139 @@
+=========================================== How to add or edit IP =======================================
+System->Preference->Network Connections
+
+1. If fresh machine then add NEW IP where tick on "Connect Automatically" but choose Manual from the drop down box.
+2. If copied from another machine then edit the last ethX. 
+
+-> Find out MAC address using ifconfig command
+
+============================ How to change HOSTNAME =============
+ vi /etc/sysconfig/network
+
+NETWORKING=yes
+HOSTNAME=YOUR_HOST_NAME
+
+------------------------------ End of Hostname -------------------------
+
+
+======================== How to change or view MAC Address With Other's Information ==================
+
+>> cd /etc/sysconfig/network-scripts/
+>> ll
+>> vi ifcfg-eth0 (or check ur eth)
+You will get like this:
+-------------------------
+HWADDR=00:0C:29:22:DE:A9	(Its your MAC Address)
+TYPE=Ethernet
+BOOTPROTO=none
+IPADDR=192.168.7.94		(IT's our ip address)
+PREFIX=22
+GATEWAY=192.168.4.1
+DEFROUTE=yes
+IPV4_FAILURE_FATAL=yes
+IPV6INIT=no
+NAME=eth2
+UUID=c2ea20a3-afd8-4d62-a46d-c2e6ab37f3d3
+ONBOOT=yes
+------------------------- End of Information Editing --------------------------
+
+========================= How to Network Restart =====================
+>> service network restart
+-------------------- End of Netowrk Restart -----------------------
+
+========================= How to update last eth info and mac address ==================
+First you have to check your MAC address using "ifconfig" command like as "HWaddr 00:0C:29:17:C8:5B"
+
+>> vi /etc/udev/rules.d/70-persistent-net.rules
+	Only keep the MAC address related with edit or keep your desire ethX. Else other will be deleted
+
+---------------------------------- End of your networking rules------------------------------------------
+
+======================================= How to configure Netowk Time Protocal ----------------------------
+>>  date
+>>  ntpdate -u 192.168.5.189		(ip address will be your time server)
+>> vi /etc/ntp.conf			(If you are not interest with the ntpdate command you can manually assign by the ntp.conf file)
+
+>> service ntpd status
+>> service ntpd start
+>> chkconfig ntpd on
+--------------------------------------------- End of Network Time Protocal ------------------------------------
+
+===================================== How to activated or services of vsftpd =========================
+>> service vsftpd status
+>> service vsftpd start
+>> chkconfig vsftpd on
+>> service iptables
+>> service iptables status
+>> service iptables stop
+>> chkconfig iptables off
+
+
+====================== How to solve Unable to Hostname Problem==========================
+To fix it:
+
+Find your host name. Type: hostname. For example, you find your hostname is X.X_myHostname
+Put your host name in your hosts file. /etc/hosts . Such as
+192.168.X.X  X.X_myHostname
+
+======================= Hostname Setup in RHEL/CentOS 7.X ==============================
+You can use either of following methods to change the hostname
+1. use hostname control utility: hostnamectl
+2. use NetworkManager command line tool: nmcli
+3. use NetworkManager text user interface tool : nmtui
+4. edit /etc/hostname file directly (a reboot afterwards is required)
+
+To get the current hostname of the system :
+# hostnamectl status
+
+Method: 1
+---------------
+# hostnamectl set-hostname test-36-123    ## static
+or
+# hostnamectl set-hostname "test-36-123"   ## pretty
+
+Method 2 : nmcli
+-----------------
+To show current hostname: 
+# nmcli general hostname
+To set new hostname:
+# nmcli general hostname test-36-123
+Then Service Restart:
+# systemctl systemd-hostnamed restart
+
+Method 3 : nmtui
+-----------------
+We can also change the hostname using the nmtui tool :
+# nmtui
+Select "Set System hostname"
+
+Method 4 : Edit /etc/hostname
+----------------------------------
+ Then Add your hostname and reboot must be required to effect
+
+----------------------------------------------- How to Linux Network Settings using command line --------------------------------------------------
+1. View Network Settings of Specific Interface
+>> ifconfig eth0
+2. How to Enable an Network Interface
+>> ifconfig eth0 up
+3. How to Disable an Network Interface
+>> ifconfig eth0 down
+4. How to Assign a IP Address to Network Interface
+>> ifconfig eth0 172.16.25.125
+5. How to Assign a Netmask to Network Interface
+>> ifconfig eth0 netmask 255.255.255.224
+6. How to Assign a Broadcast to Network Interface
+>> ifconfig eth0 broadcast 172.16.25.63
+7. How to Assign a IP, Netmask and Broadcast to Network Interface
+>> ifconfig eth0 172.16.25.125 netmask 255.255.255.224 broadcast 172.16.25.63
+8. How to Change MTU for an Network Interface
+>> ifconfig eth0 mtu 1000
+9. How to Enable Promiscuous Mode
+>> ifconfig eth0 promisc
+10. How to Disable Promiscuous Mode
+>> ifconfig eth0 -promisc
+11. How to Add New Alias to Network Interface
+>> ifconfig eth0:0 172.16.25.127
+12. How to Remove Alias to Network Interface
+>> ifconfig eth0:0 down
+13. How to Change the MAC address of Network Interface
+>> ifconfig eth0 hw ether AA:BB:CC:DD:EE:FF

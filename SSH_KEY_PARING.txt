@@ -1,0 +1,83 @@
+--------------------------------------------
+Suppose We have two machines "A" & "B"
+
+where,
+A is local machine
+B is Server machine
+
+B wants to automatically login using ssh to "A" machine. So, first we have to generate key on machine "A". 
+
+-----------------------------------
+	 ssh-keygen -t rsa
+-----------------------------------
+Then enter enter enter upto finish. Or you can set your desire password
+
+Successfully new file  "id_rsa.pub" file created on " $HOME/.ssh/" path. Where secret key generated.
+
+Now we have a copy the created file on our desire "B" Server machine. It can be possible with the following command
+
+-------------------------------------------------------------------
+   ssh-copy-id -i $HOME/.ssh/id_rsa.pub user@B(local server)
+-------------------------------------------------------------------
+
+type your local server password
+
+Successfully Finish.
+
+=======================================
+If problem occur in Host/Server Section
+=======================================
+
+Using ssh-copy-id along with the ssh-add/ssh-agent
+
+When no value is passed for the option -i and If ~/.ssh/identity.pub is not available, ssh-copy-id will display the following error message.
+
+jsmith@local-host$ ssh-copy-id -i remote-host
+/usr/bin/ssh-copy-id: ERROR: No identities found
+
+If you have loaded keys to the ssh-agent using the ssh-add, then ssh-copy-id will get the keys from the ssh-agent to copy to the remote-host. i.e, it copies the keys provided by ssh-add -L command to the remote-host, when you don’t pass option -i to the ssh-copy-id.
+
+jsmith@local-host$ ssh-agent $SHELL
+
+jsmith@local-host$ ssh-add -L
+The agent has no identities.
+
+jsmith@local-host$ ssh-add
+Identity added: /home/jsmith/.ssh/id_rsa (/home/jsmith/.ssh/id_rsa)
+
+jsmith@local-host$ ssh-add -L
+ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAsJIEILxftj8aSxMa3d8t6JvM79DyBV
+aHrtPhTYpq7kIEMUNzApnyxsHpH1tQ/Ow== /home/jsmith/.ssh/id_rsa
+
+jsmith@local-host$ ssh-copy-id -i remote-host
+jsmith@remote-host's password:
+Now try logging into the machine, with "ssh 'remote-host'", and check in:
+
+
+
+
+===================================== Tips & Tricks ==============================================
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!
+Someone could be eavesdropping on you right now (man-in-the-middle attack)!
+It is also possible that the RSA host key has just been changed.
+The fingerprint for the RSA key sent by the remote host is
+24:15:ca:f0:be:58:6b:8f:49:0a:22:9b:60:94:93:ef.
+Please contact your system administrator.
+Add correct host key in /root/.ssh/known_hosts to get rid of this message.
+Offending key in /root/.ssh/known_hosts:2
+RSA host key for 192.168.39.51 has changed and you have requested strict checking.
+Host key verification failed.
+lost connection
+
+Solution:  -> ssh-keygen -R x.x.x.x (ip address which is not connect)
+OR
+-> vi /root/.ssh/known_hosts
+Then remove the relevant IP information
+
+
+GSSAPIAuthentication no
+
+UseDNS no

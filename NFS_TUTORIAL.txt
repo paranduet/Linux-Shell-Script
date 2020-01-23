@@ -1,0 +1,139 @@
+NFS Tutorial:
+===================== H.M. Shah Paran Ali
+
+server section:
+-----------------
+1. First Intall
+	yum install nfs-utils nfs-utils-bind
+
+2. Now we have to create mounting directory, i.e: nfs
+
+3. Configure Exports Path:
+	/etc/exports  --> /nfs 192.168.0.101(client_ip who share)(rw,sync,no_root_squash)
+
+4. exports -a
+
+5. showmount -e
+
+6. service status or start 
+	/etc/init.d/nfs status|start|stop
+7. iptables stop (not necessary, if client ip mounting problem)
+
+Client Section:
+---------------------
+1. First we have do the following command:
+
+	mount -t nfs 192.168.36.69(nfs_server_ip):/nfs(nfs_directory) /root/Desktop or 
+
+	Specific for GB Signcard module
+	//192.168.1.21/cps      /aofs/      cifs    username=administrator,password=ibbl321 0 0
+
+//192.168.1.21/cps      /aofs/      cifs    username=administrator,password=ibbl321 0 0
+192.168.36.70:/upload    /upload
+
+How to Mount:
+====================
+# mkdir /mnt/cifs
+# mount -t cifs //server-name/share-name /mnt/cifs -o username=shareuser,password=sharepassword,domain=nixcraft
+# mount -t cifs //192.168.1.21/cps/ /aofs/ -o username=administrator,password=ibbl321
+
+
+/usr/Tomcat5/webapps/cipps/WEB-INF/classes/ibbl/cipps/util/
+assign User List for SFD
+Export Parametter
+----------------------
+path	client_host_ip (rw,sync,no_root_squash,no_all_squash)
+192.168.36.62:/var/nfs_share/ /var/ibbl_share/ nfs rw,sync,hard,intr 0 0
+NFS_Host:/NFS_Path/	/local_path/	nfs rw,sync,hard,intr 0 0
+How to show the NFS Status
+----------------------------
+Server rpc stats:
+calls      badcalls   badclnt    badauth    xdrcall
+266107945   639938     0          639938     0
+
+Server nfs v4:
+null         compound
+4         0% 266107941 99%
+
+Server nfs v4 operations:
+op0-unused   op1-unused   op2-future   access       close        commit
+0         0% 0         0% 0         0% 22949439  2% 37399765  4% 1409727   0%
+create       delegpurge   delegreturn  getattr      getfh        link
+30        0% 0         0% 35316340  4% 222567703 25% 66964794  7% 0         0%
+lock         lockt        locku        lookup       lookup_root  nverify
+0         0% 0         0% 0         0% 39052915  4% 0         0% 0         0%
+open         openattr     open_conf    open_dgrd    putfh        putpubfh
+37424120  4% 0         0% 952599    0% 24329     0% 266387736 30% 0         0%
+putrootfh    read         readdir      readlink     remove       rename
+2656      0% 70680832  8% 25351     0% 0         0% 0         0% 346475    0%
+renew        restorefh    savefh       secinfo      setattr      setcltid
+61370     0% 37770623  4% 37770625  4% 0         0% 1362963   0% 2652      0%
+setcltidconf verify       write        rellockowner bc_ctl       bind_conn
+2652      0% 0         0% 1484167   0% 0         0% 0         0% 0         0%
+exchange_id  create_ses   destroy_ses  free_stateid getdirdeleg  getdevinfo
+0         0% 0         0% 0         0% 0         0% 0         0% 0         0%
+getdevlist   layoutcommit layoutget    layoutreturn secinfononam sequence
+0         0% 0         0% 0         0% 0         0% 0         0% 0         0%
+set_ssv      test_stateid want_deleg   destroy_clid reclaim_comp
+0         0% 0         0% 0         0% 0         0% 0         0%
+
+================================================ Another Important Command for NFS=====================
+Show all information about all versions of NFS
+# nfsstat -o all -234
+
+OR
+# nfsstat --verbose -234
+
+Show all information about active versions of NFS
+# nfsstat -o all
+
+Show statistics for NFS version 3 server
+# nfsstat --nfs --server -3
+
+Show information about mounted NFS filesystems
+# nfsstat -m
+
+
+Problem:
+mount.nfs: rpc.statd is not running but is required for remote locking.
+mount.nfs: Either use '-o nolock' to keep locks local, or start statd.
+mount.nfs: an incorrect mount option was specified
+
+Solution:
+# /etc/init.d/rpcbind start
+Starting rpcbind:                                        
+ 
+# chkconfig rpcbind on
+
+Also can do
+
+# /etc/init.d/nfslock start
+
+
+mount -t nfs 192.168.36.149:/var/trade_share/ /trade_doc/
+
+192.168.36.149:/var/trade_share/    /trade_doc/
+Starting NFS statd:                             
+# chkconfig nfslock on
+
+
+############### For Storage GB #########
+
+umount //192.168.1.21/cps/
+mount 192.168.1.55:/AC_OPENING/ /aofs/
+192.168.1.55:/AC_OPENING/       /aofs/  nfs defaults 0 0
+
+192.168.1.56:/CIPPS
+umount 192.168.36.62:/var/ib_share/
+mount 192.168.1.56:/CIPPS /var/nf_share/
+
+192.168.1.56:/CIPPS		/var/nf_share/	nfs rw,sync,hard,intr 0 0
+
+
+192.168.36.62:/var/ib_share/
+
+
+https://upvir.al/ref/hO17247902
+
+Net Wealth: 2,818,124 				
+Income Tax Shown:  783,624 	
