@@ -1,0 +1,91 @@
+yum localinstall http://192.168.46.228/pub/katello-ca-consumer-latest.noarch.rpm
+
+ 
+
+echo "192.168.46.228  rhsat01.islamibankbd.com rhsat01" >>  /etc/hosts
+
+ 
+
+subscription-manager register --org=ibbl --activationkey="PROD-RHEL6-KEY"
+
+subscription-manager register --org=ibbl --activationkey="PROD-RHEL6-KEY"
+ 
+
+hostname
+
+ 
+
+rm /etc/rhsm/facts/*
+
+subscription-manager clean
+
+ 
+
+subscription-manager register --org=ibbl --activationkey="PROD-RHEL6-KEY"
+
+ 
+
+yum repolist
+
+ 
+
+yum update subscription-manager yum -y
+
+ 
+
+Hosts> COntent Host> Select System > Product Content > Select Satellite 6.2 for the system
+
+ 
+
+subscription-manager repos --enable=rhel-\*-satellite-tools-\*-rpms
+
+ 
+
+ 
+
+ 
+
+subscription-manager refresh
+
+ 
+
+yum clean all
+
+ 
+
+yum repolist
+
+ 
+
+yum install katello-agent -y
+
+ 
+
+yum install redhat-access-insights  -y
+
+ 
+
+redhat-access-insights --register
+
+ 
+
+ 
+
+/root/Desktop/Linux Client Packages
+
+ 
+
+ 
+
+TMPDIR=/root/Desktop/Linux Client Packages/ /root/Desktop/Linux Client Packages/./traps-installer.sh
+
+TMPDIR=/root/Desktop/Linux Client Packages/ /root/Desktop/Linux Client Packages//traps-installer.sh
+
+####### For RHEL 7.4 Hardening #######
+hostnamectl set-hostname your-new-hostname
+cat /etc/hostname
+
+yum install selinux-policy-devel
+
+######### For RHEL 6.5 Hardening #########
+yum install policycoreutils-python
