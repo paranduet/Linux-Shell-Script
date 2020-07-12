@@ -1,0 +1,42 @@
+How to extend LVM RHEL 7
+
+First We have add resource or HDD in VM
+
+######### Then check partition. It can be done using cfdisk command Then do the following
+
+
+### df -kh
+### To show disk
+lsblk
+#### To create physical volume
+pvcreate /dev/sdc    ### Here sdc means new added physical disk or space
+### Volume group extend
+vgextend data_vg /dev/sdc
+
+#### To show the vsg size
+vgs
+
+#### To extend lvm
+lvextend -L 16G /dev/data_vg/data_lv		### only number means mount point will be fixed size (i.e. 16GbB)
+lvextend -L +16G /dev/data_vg/data_lv		### mount point will be extend or increase 16Gb sieze
+
+#### To see latest info
+lvs
+
+##### See the current disk informaion
+df -kh
+(But didn't change)
+
+#### For change effect
+xfs_growfs /dev/data_vg/data_lv
+
+#### Now see the latest informaion
+
+df -kh
+
+################# LVC Restoring Tutorial ###############
+
+
+
+
+
