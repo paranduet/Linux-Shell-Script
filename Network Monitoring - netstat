@@ -1,0 +1,7 @@
+########## Check Connection From Linux ###############
+https://www.tecmint.com/20-netstat-commands-for-linux-network-management/
+### For Count With specific IP and Port
+netstat -an | grep 192.168.36.128:22 | wc -l
+
+#### Status Check ###########
+netstat -an | grep 192.168.36.128:22 | awk '{print $6}'
