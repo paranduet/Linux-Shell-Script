@@ -1,0 +1,2 @@
+### For search with specific word (i.e. NAME, then replace RAM-> SHYAM)
+sed -e '/NAME/s/RAM/SHYAM/g' filename
