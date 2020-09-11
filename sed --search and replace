@@ -12,3 +12,6 @@ sed -i.bkp  5'i'"s/search/replace/"  inputfile
 -i.bkp take backup as inpufile.bkp and edit original file
 5'i' go to line 5
 s/ search and replace
+
+##############Search with specific multiple exact string ##############
+grep -w 'paran.*pass1232' /opt/script/support_automation/usrmgt   // For find pattern with AND (.*), -w for specific word not substring
