@@ -7,3 +7,8 @@ IP				Service_Name	Current_Status		Request_Status
 
 sed -e '/NAME/s/RAM/SHYAM/g' filename
 sed -ie '/192.168.15.174/s/disable/enable/g' filename
+
+sed -i.bkp  5'i'"s/search/replace/"  inputfile
+-i.bkp take backup as inpufile.bkp and edit original file
+5'i' go to line 5
+s/ search and replace
