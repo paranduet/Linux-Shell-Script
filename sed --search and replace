@@ -1,2 +1,9 @@
 ### For search with specific word (i.e. NAME, then replace RAM-> SHYAM)
 sed -e '/NAME/s/RAM/SHYAM/g' filename
+
+############ Current_Status(start, stop, restart), Request_Status(RF-START= Request For Start, RF-STOP, RF-RESTART) ###########
+IP				Service_Name	Current_Status		Request_Status			
+192.168.15.174	memcached			start				RF-START
+
+sed -e '/NAME/s/RAM/SHYAM/g' filename
+sed -ie '/192.168.15.174/s/disable/enable/g' filename
