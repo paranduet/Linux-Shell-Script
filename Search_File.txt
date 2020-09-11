@@ -32,3 +32,6 @@ Search File
 
 10. We can search for all files that end in ".conf" like this:
 	#find / -type f -name "*.conf"
+
+############# Search with Specific Multiple Pattern with exact string, not sub string ###############
+grep -w 'paran.*pass1232' /opt/script/support_automation/usrmgt   // For find pattern with AND (.*), -w for specific word not substring
