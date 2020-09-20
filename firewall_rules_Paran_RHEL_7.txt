@@ -6,6 +6,9 @@
 #	Email: paran.duet@gmail.com
 ###################################################################################
 
+### To masking with iptables #####
+systemctl mask iptables
+
 1. How to check firewall status in RHEL 7.4
 
 # systemctl status firewalld
@@ -91,3 +94,5 @@ Port Forwarding: Forward inbound network traffic from a specific port or port ra
 ICMP Filter: Block selected Internet Control Message Protocol messages.
 Rich Rules: Extend existing firewalld rules to include additional source and destination addresses and logging and auditing actions.
 Interfaces: Network interfaces bound to the zone. The zone for an interface is specified with the ZONE=option in the /etc/sysconfig/network-scripts/ifcfg file. If the option is missing, the interface is bound to the default zone.
+##### Source of Knowledge ##############
+https://www.rootusers.com/how-to-use-firewalld-rich-rules-and-zones-for-filtering-and-nat/#:~:text=%2D%2Dadd%2Drich%2Drule,ports%208080%20through%20to%208090.&text=%2D%2Dlist%2Drich%2Drules,rule%20that%20we%20just%20created.
