@@ -29,11 +29,13 @@
 
 # firewall-cmd --permanent --zone=public --add-port=80/tcp
 
-2. Similarly, to remove added port, just use the ‘–remove‘ option with firewalld command as shown below.
+2. Similarly, to remove added port, just use the â€˜â€“removeâ€˜ option with firewalld command as shown below.
 
+ #firewall-cmd --permanent --zone=public --add-port=8101/tcp
+		OR
 # firewall-cmd --zone=public --remove-port=80/tcp
 
-3. After adding or removing specific ports, make sure to confirm whether the port is added or removed by using ‘–list-ports‘ option.
+3. After adding or removing specific ports, make sure to confirm whether the port is added or removed by using â€˜â€“list-portsâ€˜ option.
 
 # firewall-cmd --zone=public --list-ports
 
@@ -53,7 +55,7 @@
 
 		Block Incoming and Outgoing Packets (Panic Mode)
 ================================================================
-1. If you wish to block any incoming or outgoing connections, you need to use a ‘panic-on‘ mode to block such requests.
+1. If you wish to block any incoming or outgoing connections, you need to use a â€˜panic-onâ€˜ mode to block such requests.
 
 
 		Masquerading IP Address
@@ -62,11 +64,11 @@
 
 # firewall-cmd --zone=external --query-masquerade
 
-2. If it’s not enabled, you can enable it by following command.
+2. If itâ€™s not enabled, you can enable it by following command.
 
 # firewall-cmd --zone=external --add-masquerade
 
-3. Now let’s forward all ssh port 22 connections to port 2222 for IP address 192.168.0.132.
+3. Now letâ€™s forward all ssh port 22 connections to port 2222 for IP address 192.168.0.132.
 
 # firewall-cmd --zone=external --add-forward-port=port=22:proto=tcp:toport=2222:toaddr=192.168.0.132
 # firewall-cmd --zone=external --list-all
