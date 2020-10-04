@@ -1,0 +1,84 @@
+Create Keystore using Java keytool
+-----------------------------------------
+# $JAVA_HOME/bin/keytool -genkey -alias tomcat -keyalg RSA
+Enter keystore password:
+Re-enter new password:
+What is your first and last name?
+ [Unknown]:  Ramesh Natarajan
+What is the name of your organizational unit?
+ [Unknown]:  Development
+What is the name of your organization?
+ [Unknown]:
+What is the name of your City or Locality?
+ [Unknown]:  Los Angeles
+What is the name of your State or Province?
+ [Unknown]:  CA
+What is the two-letter country code for this unit?
+ [Unknown]:  US
+Is CN=Ramesh, OU=Development, O=Unknown, L=Los Angeles, ST=CA, C=US correct?
+ [no]:  yes
+
+Enter key password for 
+   (RETURN if same as keystore password):
+csr4Scholarship
+ keystore file location 
+--------------------------------------------
+# ls -l /root/.keystore
+-rw-r--r-- 1 root root 1391 Apr  6 11:19 .keystore
+---------------------------- End File Location ---------------------
+
+Above keytool command will create default 1024 bit. If want to create 2048 bit then command will be:
+
+keytool -genkey -alias tomcat -keyalg RSA –keysize 2048
+ 
+ ==============Modify the server.xml file=====================
+	      ----------------------------
+
+Locate the conf/server.xml file. If the Connector port=”8443? is commented out, you should uncomment it first. Please note that the comments in the server.xml file are enclosed in <!– and –> as shown below. You should remove the 1st and last line from the following code snippet.
+
+# vi server.xml
+   <!--
+   <Connector port="8443" protocol="HTTP/1.1" SSLEnabled="true"
+              maxThreads="150" scheme="https" secure="true"
+              clientAuth="false" sslProtocol="TLS" />
+   -->
+Now, add the keystore information to the server.xml as shown below. Replace the your-key-password with the password you provided in the step 1 while creating the keystore.
+
+# vi server.xml
+   <Connector port="8443" protocol="HTTP/1.1" SSLEnabled="true"
+              maxThreads="150" scheme="https" secure="true"
+              keystoreFile="/root/.keystore" keystorePass="your-key-password"
+              clientAuth="false" sslProtocol="TLS" />
+
+
+----------------------------- NIO Connection Configuration ------------------------------
+<Connector port="8080" 
+protocol="org.apache.coyote.http11.Http11NioProtocol" maxThreads="150" 
+connectionTimeout="20000" redirectPort="8443" />	
+
+change protocol ="HTTP/1.1" should be "org.apache.coyote.http11.Http11NioProtocol"
+
+https://192.168.36.96:8443/casm
+Dhttps.protocols=TLSv1,SSLv3 and -Dsun.security.ssl.allowUnsafeRenegotiation=true
+
+--------------------------- How to hide cookie from browser ---------------------------------
+First we have to enter in /tomcat/conf/web.xml
+
+Search: <session-timeout>30</session-timeout>  
+include under the line: <tracking-mode>COOKIE</tracking-mode>
+
+All code will be like this:
+<session-config>
+        <session-timeout>30</session-timeout>
+        <tracking-mode>COOKIE</tracking-mode>
+    </session-config>
+------------------------------------------------------------------------------------------------
+
+------------------------ Debug Mode on in Hardening Server ----------------
+###Run those following command in the hardening server####
+export JPDA_TRANSPORT=dt_socket
+export JPDA_ADDRESS=8000
+
+./catalina.sh jpda start
+
+##################### End of Debug Mode Session #########################
