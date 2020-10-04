@@ -78,7 +78,7 @@ All code will be like this:
 ###Run those following command in the hardening server####
 export JPDA_TRANSPORT=dt_socket
 export JPDA_ADDRESS=8000
-
+cd /opt/tomcat/bin/
 ./catalina.sh jpda start
 
 ##################### End of Debug Mode Session #########################
