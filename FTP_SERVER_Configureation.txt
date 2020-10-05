@@ -83,6 +83,13 @@ Gropup: ftpusers
 6. gpasswd -a <-username> <-groupname>
 7. chgrp -R <-groupname> /var/www/mydomain.com
 8. chmod -R g+rw /var/www/mydomain.com
+9. usermod -d //var/www/mydomain.com ftpuser
 
+to check: grep 'ftpuser' /etc/passwd
+
+##### Edit in the /etc/vsftpd/vsftpd.conf ##########
+anonymous_enable=NO
+local_enable=YES
+write_enable=YES
 chroot_local_user=YES
-
+#################### End of vsftpd Configuratiohn############
