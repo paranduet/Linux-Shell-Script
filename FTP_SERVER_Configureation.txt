@@ -68,3 +68,21 @@ allow_writeable_chroot=YES
 
 
 Link: https://www.tecmint.com/install-ftp-server-in-centos-7/
+
+/var/bach_share/bach
+
+User: ftpuser
+Gropup: ftpusers
+
+1. mkdir /var/www/mydomain.com
+2. mkdir /var/www/mydomain.com/html
+3. useradd <-username>
+4. passwd <-username>
+5. chown –R <-username> /var/www/mydomain.com
+5. groupadd <-groupname>
+6. gpasswd -a <-username> <-groupname>
+7. chgrp -R <-groupname> /var/www/mydomain.com
+8. chmod -R g+rw /var/www/mydomain.com
+
+chroot_local_user=YES
+
