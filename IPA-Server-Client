@@ -1,0 +1,200 @@
+########################### Server Configuration Purpose #########################
+1   lsblk
+  2  cp -rfv /run/media/root/RHEL-7.6\ Server.x86_64/Packages/ /var/ftp/pub/
+  3  cp -rfv /run/media/root/RHEL-7.6\ Server.x86_64/repodata/ /var/ftp/pub/
+  4  ip a
+  5  yum install vsftpd
+  6  systemctl enable vsftpd
+  7  systemctl start vsftpd
+  8  semanage fcontext -a -t public_content_rw_t /var/ftp/pub
+  9  restorecon -Rvv /var/ftp/pub
+ 10  vim /etc/vsftpd/vsftpd.conf
+ 11  firewall-cmd --permanent --add-port=21/tcp
+ 12  firewall-cmd --reload
+ 13  ftp localhost
+ 14  vim /etc/vsftpd/vsftpd.conf
+ 15  systemctl restart vsftpd
+ 16  ping sasidm2
+ 17  cat /etc/sysconfig/network-scripts/ifcfg-ens192
+ 18  hostnamectl
+ 19  setenforce 0
+ 20  yum install ipa-server
+ 21  ipa-server-install --idstart=3000 --idmax=13000
+ 22  systemctl restart sshd
+ 23  firewall-cmd --permanent --add-service={http,https,ldap,ldaps,kerberos,dns,kpasswd,ntp}
+ 24  firewall-cmd --reload
+ 25  ipactl status
+ 26  free -m
+ 27  ipactl status
+ 28  free -m
+ 29  top
+ 30  vmtat
+ 31  vmstat
+ 32  cat /etc/passwd
+ 33  hostname'
+ 34  hostname
+ 35  ssh sasidm2
+ 36  nsllokup sasidm2
+ 37  nslookup sasidm2
+ 38  exit
+ 39  ping sasidm1
+ 40  ip a
+ 41  ping sasidm1.islamibankbd.com
+ 42  ip 192.168.38.211
+ 43  ping 192.168.38.211
+ 44  ping sasidm1.islamibankbd.com
+ 45  ipactl stop
+ 46  ipactl start
+ 47  /usr/sbin/ipa-replica-conncheck --replica sasidm2.islamibankbd.com
+ 48  kinit admin
+ 49  ipa user-find test
+ 50  ipactl stop
+ 51  ipactl start
+ 52  ipa user-find test
+ 53  systemctl stop firewalld
+ 54   systemctl start firewalld
+ 55  ipa user-find test4
+ 56   ipa user-find test2
+ 57  getent test3
+ 58  getent test2
+ 59  id test2
+ 60  id passwd test2
+ 61  id passwd sasidm
+ 62  getent passwd sasidm
+ 63  getent passwd test2
+ 64  id ldap
+ 65  id test4
+ 66  ipactl stop
+ 67  ipactl start
+ 68  ipactl status
+ 69  df -hT
+ 70  vi /etc/hosts
+ 71  history
+ 72  hostname
+ 73  vi /etc/hostname
+ 74  vi /etc/yum.repos.d/YumSRv.repo
+ 75  history
+ 76      1   lsblk
+ 77      2  cp -rfv /run/media/root/RHEL-7.6\ Server.x86_64/Packages/ /var/ftp/pub/
+ 78      3  cp -rfv /run/media/root/RHEL-7.6\ Server.x86_64/repodata/ /var/ftp/pub/
+ 79      4  ip a
+ 80      5  yum install vsftpd
+ 81      6  systemctl enable vsftpd
+ 82      7  systemctl start vsftpd
+ 83      8  semanage fcontext -a -t public_content_rw_t /var/ftp/pub
+ 84      9  restorecon -Rvv /var/ftp/pub
+ 85     10  vim /etc/vsftpd/vsftpd.conf
+ 86     11  firewall-cmd --permanent --add-port=21/tcp
+ 87     12  firewall-cmd --reload
+ 88     13  ftp localhost
+ 89     14  vim /etc/vsftpd/vsftpd.conf
+ 90     15  systemctl restart vsftpd
+ 91     16  ping sasidm2
+ 92     17  cat /etc/sysconfig/network-scripts/ifcfg-ens192
+ 93     18  hostnamectl
+ 94     19  setenforce 0
+ 95     20  yum install ipa-server
+ 96     21  ipa-server-install --idstart=3000 --idmax=13000
+ 97     22  systemctl restart sshd
+ 98     23  firewall-cmd --permanent --add-service={http,https,ldap,ldaps,kerberos,dns,kpasswd,ntp}
+ 99     24  firewall-cmd --reload
+100     25  ipactl status
+101     26  free -m
+102     27  ipactl status
+103     28  free -m
+104     29  top
+105     30  vmtat
+106     31  vmstat
+107     32  cat /etc/passwd
+108     33  hostname'
+109     34  hostname
+110     35  ssh sasidm2
+111     36  nsllokup sasidm2
+112     37  nslookup sasidm2
+113     38  exit
+114     39  ping sasidm1
+115     40  ip a
+116     41  ping sasidm1.islamibankbd.com
+117     42  ip 192.168.38.211
+118     43  ping 192.168.38.211
+119     44  ping sasidm1.islamibankbd.com
+120     45  ipactl stop
+121     46  ipactl start
+122     47  /usr/sbin/ipa-replica-conncheck --replica sasidm2.islamibankbd.com
+123     48  kinit admin
+124     49  ipa user-find test
+125     50  ipactl stop
+126     51  ipactl start
+127     52  ipa user-find test
+128     53  systemctl stop firewalld
+129     54   systemctl start firewalld
+130     55  ipa user-find test4
+131     56   ipa user-find test2
+132     57  getent test3
+133     58  getent test2
+134     59  id test2
+135     60  id passwd test2
+136     61  id passwd sasidm
+137     62  getent passwd sasidm
+138     63  getent passwd test2
+139     64  id ldap
+140     65  id test4
+141     66  ipactl stop
+142     67  ipactl start
+143     68  ipactl status
+144     69  df -hT
+145     70  vi /etc/hosts
+148     73  vi /etc/hostname
+149     74  vi /etc/yum.repos.d/YumSRv.repo
+
+############################# IPA-Client Configuration #####################
+3  vim /etc/yum.repos.d/YumClient.repo
+    4  vi /etc/yum.repos.d/YumClient.repo
+    5  yum repolist
+    6  free -m
+    7  setenforce 0
+    8  firewall-cmd --permanent --add-service={http,https,ldap,ldaps,kerberos,dns,kpasswd,ntp}
+    9  firewall-cmd --reload
+   10  yum install ipa-server
+   11  ipa-client-install --mkhomedir
+   12  id admin
+   13  su - test
+   14  exit
+   15  hostnamectl set-hostname sasidm2.islamibankbd.com
+   16  su -
+   17  su - test1
+   18  id test1
+   19  ipa-replica-install
+   20  exit
+   21  ipa-replica-install
+   22  vim /etc/hosts
+   23  ipa-replica-install
+   24  cat /var/log/ipareplica-install.log
+   25  getenforce
+   26  id admin
+   27  kinit admin
+   28  ipa-replica-install
+   29  firewall-cmd --reload
+   30  ipa-replica-install
+   31  ipa-replica-conncheck --master idm1.islamibankbd.com
+   32  vim /etc/hosts
+   33  ipa-replica-conncheck --master sasidm1.islamibankbd.com
+   34  ipa-replica-install
+   35  kinit admin
+   36  ipa user-find test
+   37  ipa-replica-install
+   38  ipa-replica-install --principal admin --admin-password  --setup-ca
+   39  ipa-replica-install --principal admin  --setup-ca
+   40  vim /etc/hosts
+   41  ipa-replica-install
+   42  kinit admin
+   43  kinit admin@ISLAMIBANKBD.COM
+   44  vim /etc/hosts
+   45  kinit admin@ISLAMIBANKBD.COM
+   46  kinit admin
+   47  exit
+   48  id admin
+   49  kinit admin
+   50  vim /etc/hosts
+   51  kinit admin
+   52  ipa-replica-install
