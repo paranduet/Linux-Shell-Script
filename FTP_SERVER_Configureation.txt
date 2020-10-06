@@ -87,6 +87,10 @@ Gropup: ftpusers
 
 to check: grep 'ftpuser' /etc/passwd
 
+############ Edit Selinux Enforcing to Disabled ###########
+vi /etc/selinux/config
+SELINUX=disabled
+SELINUXTYPE=targeted
 ##### Edit in the /etc/vsftpd/vsftpd.conf ##########
 anonymous_enable=NO
 local_enable=YES
