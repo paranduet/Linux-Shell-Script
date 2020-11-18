@@ -1,0 +1,37 @@
+Step :1) Create a group
+[root@localhost ~]# groupadd  sftp_users
+
+Step: 2) Assign the secondary group(sftp_users) to the user
+[root@localhost ~]# useradd  -G sftp_users -s /sbin/nologin  jack
+[root@localhost ~]# passwd jack
+For already existing users , use below usermod command :
+[root@localhost ~]# usermod –G sftp_users -s /sbin/nologin  jack
+
+Note : If you want to change the default home directory of users , then use ‘-d’ option in useradd and usermod  command and set the correct permissions.
+
+Step :3) Now edit the config file “/etc/ssh/sshd_config”
+
+# vi /etc/ssh/sshd_config
+
+#comment out the below line and add a line like below
+#Subsystem sftp /usr/libexec/openssh/sftp-server
+Subsystem sftp internal-sftp
+
+# add Below lines at the end of file
+Match Group sftp_users
+X11Forwarding no
+AllowTcpForwarding no
+ChrootDirectory %h
+ForceCommand internal-sftp
+
+[root@localhost ~] # systemctl restart sshd
+
+Step :4) Set the required permissions on user’s home directory
+[root@localhost ~]# chmod 755 /home/jack
+[root@localhost ~]# chown root /home/jack
+[root@localhost ~]# chgrp -R sftp_users /home/jack
+
+[root@localhost jack]# mkdir /home/jack/upload
+[root@localhost jack]# chown jack /home/jack/upload/
+
+[root@localhost ~] setsebool -P ssh_chroot_full_access on
