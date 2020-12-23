@@ -109,3 +109,14 @@ export JAVA_OPTS="$JAVA_OPTS\
  
  ------------------ where 9090 is the remote access port from jvisualvm and hostname is remote server IP ----------------------
 >> Then restart the tomcat
+
+################################################# Configure Tomcat Management #################################
+
+
+
+
+
+
+
+
+
