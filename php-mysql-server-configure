@@ -1,0 +1,74 @@
+########################################################################
+# Author: H.M. Shah Paran Ali
+# Email: paran.duet@gmail.com
+# Description : This is not a automated script, but it will be 
+# helpfull to configure a php7.x, MySQL5.x server step by step
+########################################################################
+
+systemctl restart httpd
+systemctl stop firewalld
+php -v
+yum search php
+############## Remove Existing PHP ############
+yum remove php-cli mod_php php-common
+yum install mod_php70u php70u-cli php70u-mysqlnd
+yum -y install epel-release
+yum-config-manager --enable remi-php72
+yum update
+yum install epel-release yum-utils
+yum-config-manager --enable remi-php73
+yum install php php-common php-opcache php-mcrypt php-cli php-gd php-curl php-mysqlnd
+php -v
+yum-config-manager --enable remi-php72
+yum install php php-common php-opcache php-mcrypt php-cli php-gd php-curl php-mysqlnd
+yum install https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+yum install http://rpms.remirepo.net/enterprise/remi-release-7.rpm
+yum install yum-utils
+yum install php php-mcrypt php-cli php-gd php-curl php-mysql php-ldap php-zip php-fileinfo
+yum-config-manager --enable remi-php73
+yum install php php-mcrypt php-cli php-gd php-curl php-mysql php-ldap php-zip php-fileinfo
+php -v
+systemctl restart httpd
+mysql -v
+mysql --version
+################ Remove Existing mariadb ##############
+yum remove mariadb mariadb-server
+cd /root/Downloads/
+wget https://dev.mysql.com/get/mysql57-community-release-el7-9.noarch.rpm
+md5sum mysql57-community-release-el7-9.noarch.rpm
+rpm -ivh mysql57-community-release-el7-9.noarch.rpm
+yum install mysql-server
+systemctl status mysqld
+systemctl restart mysqld
+systemctl status mysqld
+mysql_secure_installation
+############# To Generate Temporay Password that will be required for next step ##########
+grep 'temporary password' /var/log/mysqld.log
+mysql_secure_installation
+mysqladmin -u root -p version
+################## MySQL Configuration /etc/my.cnf ##################
+user            = root
+port            = 3306
+bind-address    = 192.168.39.99 # server-ip-address
+
+vi /etc/my.cnf
+mysql -uroot -p
+systemctl restart mysqld
+############## Just For Testing ############
+touch /var/www/html/index.php
+chmod +x /var/www/html/index.php
+vi /var/www/html/index.php
+systemctl restart httpd
+vi /var/www/html/index.php
+############## Install Composer for PHP ########
+yum install composer
+composer -V
+yum install php-composer-installers
+composer installer
+################# SELINUX check and disable ########
+getenforce
+vi /etc/selinux/semanage.conf
+setenforce 0
+getenforce
+/etc/selinux/config
+vi /etc/selinux/config
