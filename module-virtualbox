@@ -1,0 +1,22 @@
+#####################################################################
+# Author: H.M. Shah Paran Ali                                       #
+# Email: paran.duet@gmail.com                                       #
+# Description: To create a virtualbox, module wise                  #
+######################################################################
+>> Create a file 
+vi /etc/httpd/conf.d/bugzilla.conf
+
+<VirtualHost *:80>
+ServerAdmin paran@islamibankbd.com
+DocumentRoot /var/www/html/bugzilla/
+ServerName 192.168.36.178
+ServerAlias bugzilla-36-178
+<Directory /var/www/html/bugzilla/>
+AddHandler cgi-script .cgi
+Options +Indexes +ExecCGI
+DirectoryIndex index.cgi
+AllowOverride Limit FileInfo Indexes Options AuthConfig
+</Directory>
+ErrorLog /var/log/httpd/bugzilla.example.com-error_log
+CustomLog /var/log/httpd/bugzilla.example.com-access_log common
+</VirtualHost>
