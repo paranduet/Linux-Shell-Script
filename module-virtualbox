@@ -20,3 +20,12 @@ AllowOverride Limit FileInfo Indexes Options AuthConfig
 ErrorLog /var/log/httpd/bugzilla.example.com-error_log
 CustomLog /var/log/httpd/bugzilla.example.com-access_log common
 </VirtualHost>
+
+
+########### How Restrict specific  directory #############
+# vi /etc/httpd/conf/httpd.conf
+<Directory /var/www/sub/payroll/>
+Order allow,deny
+Allow from 192.168.1.0/24
+Allow from 127
+</Directory>
