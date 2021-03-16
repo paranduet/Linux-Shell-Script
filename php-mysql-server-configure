@@ -53,6 +53,8 @@ bind-address    = 192.168.39.99 # server-ip-address
 
 vi /etc/my.cnf
 mysql -uroot -p
+################# For Remote Access Allowed Permission ########
+GRANT ALL ON dbname.* TO foo@'10.8.0.5' IDENTIFIED BY 'my_passwd';
 systemctl restart mysqld
 ############## Just For Testing ############
 touch /var/www/html/index.php
