@@ -1,0 +1,28 @@
+## Configuration##
+
+Procedure:
+1. Login to Linux OS device, as a root user.
+2. Open the /etc/rsyslog.conf
+3. Need to load module imfile. Add below lines to the conf file
+
+
+$ModLoad imfile
+
+# XXX.log ##Path of log file
+## set sverity as you need
+## access logs
+
+$InputFileName /opt/tomcat/logs/localhost_access_log.txt (For Example)
+$InputFileTag xyz-access-log
+$InputFileStateFile stat-xyz-access
+$InputFileSeverity info
+$InputFileFacility local6
+$InputRunFileMonitor
+
+local6.* @192.168.126.132:514
+
+
+Note: To avoid the date pattern format in Tomcat logs Please use the following configuration in tomcat server.xml file.
+
+<Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" renameOnRotate="true"
+prefix="localhost_access_log" suffix=".txt" pattern="%h %l %u %t &quot;%r&quot; %s %b" />
